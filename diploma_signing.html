@@ -306,9 +306,6 @@
     <button class="tab" onclick="switchTab('verify',this)">
       <span class="num">3</span> Verify Diploma
     </button>
-    <button class="tab" onclick="switchTab('multi',this)">
-      <span class="num">4</span> Multi-University
-    </button>
   </div>
 
   <!-- ══ TAB 1: KEY GENERATION ══ -->
@@ -316,9 +313,9 @@
     <div class="card">
       <div class="card-title">University Key Generation</div>
       <p class="card-desc">
-        Mirrors <code>keygen.py</code> — the university generates an ECDSA P-256 key pair.
+        Mirrors <code>keygenration.py</code> — the university generates an ECDSA P-256 key pair.
         The private key is encrypted with a password and stored securely.
-        The public key is distributed openly to all verifiers.
+        The public key is distributed to all verifiers.
       </p>
       <div class="grid2">
         <div class="field">
@@ -331,7 +328,7 @@
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="doKeygen()">⚿ Generate Key Pair</button>
+        <button class="btn btn-primary" onclick="doKeygen()"> Generate Key Pair</button>
       </div>
       <div class="terminal" id="kg-out"><span class="t-label">terminal</span></div>
       <div id="kg-badge"></div>
@@ -345,8 +342,7 @@
       <p class="card-desc">
         Mirrors <code>sign.py</code> — the university fills in student details, hashes the diploma
         content with SHA-256, signs it with the private key, and saves the package as
-        <code>diploma_{student_id}.json</code> with a nested <code>document</code> +
-        <code>signature</code> structure.
+        <code>diploma_{student_id}.json</code>.
       </p>
 
       <div id="key-store-sign" class="key-store">
@@ -357,11 +353,11 @@
       <div class="grid2">
         <div class="field">
           <label>Student Name</label>
-          <input type="text" id="s-name" value="Renad Naser Alharbi"/>
+          <input type="text" id="s-name" value="student Name"/>
         </div>
         <div class="field">
           <label>Student ID</label>
-          <input type="text" id="s-id" value="445004662"/>
+          <input type="text" id="s-id" value="12345678"/>
         </div>
         <div class="field">
           <label>Degree</label>
@@ -381,7 +377,7 @@
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="doSign()">✍ Sign Diploma</button>
+        <button class="btn btn-primary" onclick="doSign()"> Sign Diploma</button>
       </div>
       <div class="terminal" id="sign-out"><span class="t-label">terminal</span></div>
       <div class="diploma-preview" id="diploma-preview"></div>
@@ -394,9 +390,8 @@
     <div class="card">
       <div class="card-title">Verify Diploma Authenticity</div>
       <p class="card-desc">
-        Mirrors <code>verify.py</code> — the verifier selects a diploma and a university public key.
-        The system recomputes the SHA-256 hash over the <code>document</code> field and checks
-        the ECDSA signature. No contact with the university is required.
+        Mirrors <code>verify.py</code> — the verifier recomputes hash over the <code>document</code> field and checks
+        the signature. No contact with the university is required.
       </p>
 
       <div id="key-store-verify" class="key-store">
@@ -417,29 +412,11 @@
 
       <div class="btn-row">
         <button class="btn btn-primary"  onclick="doVerify()"> Verify</button>
-        <button class="btn btn-danger"   onclick="doTamper()">✗ Tamper Diploma</button>
-        <button class="btn"              onclick="doWrongKey()">⚿ Use Wrong Key</button>
+        <button class="btn btn-danger"   onclick="doTamper()">Tamper Diploma</button>
+        <button class="btn"              onclick="doWrongKey()"> Use Wrong Key</button>
       </div>
       <div class="terminal" id="verify-out"><span class="t-label">terminal</span></div>
       <div id="verify-badge"></div>
-    </div>
-  </div>
-
-  <!-- ══ TAB 4: MULTI-UNIVERSITY ══ -->
-  <div id="multi" class="section">
-    <div class="card">
-      <div class="card-title">Multi-University Identity Test</div>
-      <p class="card-desc">
-        Proves core requirement 5 — multiple university identities.
-        Generates key pairs for UQU and KAU, signs a diploma under each,
-        then attempts cross-university verification to prove signatures
-        cannot be transferred between institutions.
-      </p>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="doMultiTest()">▶ Run Full Multi-University Test</button>
-      </div>
-      <div class="terminal" id="multi-out"><span class="t-label">terminal</span></div>
-      <div id="multi-badge"></div>
     </div>
   </div>
 
